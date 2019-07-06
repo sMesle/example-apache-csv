@@ -7,6 +7,6 @@ import java.util.List;
 public interface StudentCsvParser {
 
     List<StudentDTO> parseCsv(String fileName) throws IOException;
-    void printCsv(String fileName) throws IOException;
+    void printCsv(List<StudentDTO> StudentDTO) throws IOException;
 
 }

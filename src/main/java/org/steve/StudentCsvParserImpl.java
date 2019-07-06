@@ -29,11 +29,8 @@ public class StudentCsvParserImpl implements StudentCsvParser {
         return studentList;
     }
 
-    public void printCsv(String fileName) throws IOException {
-
-        List<StudentDTO> dtoList = parseCsv(fileName);
-
-        for (StudentDTO dto : dtoList) {
+    public void printCsv(List<StudentDTO> StudentDTO) {
+        for (StudentDTO dto : StudentDTO) {
             System.out.println("**********");
             System.out.println("USER_ID:" + dto.getStudentId());
             System.out.println("LAST_NAME:" + dto.getLastName());
