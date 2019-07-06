@@ -2,11 +2,9 @@ package org.steve;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.csv.CSVParser;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +12,12 @@ public class StudentCsvParserImpl implements StudentCsvParser {
 
     public List<StudentDTO> parseCsv(String fileName) throws IOException {
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(fileName).getFile());
-
+        InputStream inputStream = this.getClass().getClassLoader()
+                .getResourceAsStream(fileName);
+        CSVParser parser = new CSVParser(new InputStreamReader(inputStream), CSVFormat.EXCEL.withHeader());
         List<StudentDTO> studentList = new ArrayList<>();
 
-        Reader in = new FileReader(file);
-        Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader().parse(in);
-
-        for (CSVRecord record : records) {
+        for (CSVRecord record : parser) {
             StudentDTO dto = new StudentDTO();
             dto.setStudentId(Integer.parseInt(record.get("STUDENT_ID")));
             dto.setFirstName(record.get("FIRST_NAME"));
