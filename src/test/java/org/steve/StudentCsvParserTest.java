@@ -5,9 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
 public class StudentCsvParserTest {
@@ -46,5 +44,15 @@ public class StudentCsvParserTest {
                 firstElement.getMiddleName()),
                 Arrays.asList(elementTest.getStudentId(), elementTest.getFirstName(), elementTest.getLastName(),
                         elementTest.getMiddleName()));
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void shouldThrowExceptionWhenFileNotFound() throws IOException {
+        parser.parseCsv( "filenotfound.txt");
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionEmptyFileName() throws IOException {
+        parser.parseCsv(" ");
     }
 }
